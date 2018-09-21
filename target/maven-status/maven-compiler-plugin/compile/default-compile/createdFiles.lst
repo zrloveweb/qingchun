@@ -1,6 +1,0 @@
-com\xuemei\weixin\serializer\EmptyStringSerializer.class
-com\xuemei\weixin\serializer\CustomNullStringSerializerProvider.class
-com\xuemei\weixin\aop\ExceptionAop.class
-com\xuemei\weixin\controller\WxResponseController.class
-com\xuemei\weixin\utils\CheckUtil.class
-com\xuemei\weixin\serializer\ObjectMapperFactory.class
