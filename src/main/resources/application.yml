@@ -1,0 +1,26 @@
+server:
+  port: 81
+spring:
+  thymeleaf:
+      prefix: classpath:/templates/
+  mvc:
+      static-path-pattern: /static/**
+  resources:
+      static-locations: classpath:/static/
+
+  #数据源配置
+  datasource:
+    url: jdbc:mysql://119.29.0.105:3306/qingchun?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: zhaorui
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    connectionProperties: druid.stat.mergeSql=true
+
+mybatis:
+  mapperLocations: classpath:mapping/*.xml
+  typeAliasesPackage: com.zr.wechat.model
+
+
+
+

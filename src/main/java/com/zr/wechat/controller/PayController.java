@@ -2,21 +2,23 @@ package com.zr.wechat.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.zr.wechat.mapper.UserMapper;
+import com.zr.wechat.model.User;
+import com.zr.wechat.model.UserExample;
 import com.zr.wechat.util.HttpClient;
 import com.zr.wechat.util.WXPayUtil;
 import com.zr.wechat.wechatEntity.PayEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -30,7 +32,9 @@ import java.util.UUID;
 @Controller
 public class PayController {
     private final static Logger logger = LoggerFactory.getLogger(PayController.class);
-    
+
+    @Autowired
+    private UserMapper userMapper;
     /** 
      *@Author Zr
      *@Description  登录页面
@@ -44,10 +48,18 @@ public class PayController {
         return "login";
     }
     @RequestMapping("/demo")
-    public String demo(HttpServletRequest request){
-        logger.info(request.getParameter("accessToken"));
-        logger.info(request.getParameter("openId"));
-        return "demo";
+    @ResponseBody
+    public List demo(){
+       /* User user = new User();
+        user.setName("小花");
+        user.setPhone("1771001992");
+        userMapper.insert(user);*/
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andNameEqualTo("小明");
+        //criteria.andNameLike("小明");
+        List<User> list = userMapper.selectByExample(userExample);
+        return list;
     }
     /**
      *@Author Zr
