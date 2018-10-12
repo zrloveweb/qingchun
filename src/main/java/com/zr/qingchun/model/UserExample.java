@@ -1,4 +1,4 @@
-package com.zr.wechat.model;
+package com.zr.qingchun.model;
 
 import java.util.ArrayList;
 import java.util.List;

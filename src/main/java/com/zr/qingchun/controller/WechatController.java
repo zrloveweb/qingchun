@@ -1,14 +1,14 @@
-package com.zr.wechat.controller;
+package com.zr.qingchun.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.zr.wechat.common.Constant;
-import com.zr.wechat.common.HttpClient;
-import com.zr.wechat.service.WechatService;
-import com.zr.wechat.util.CheckUtil;
-import com.zr.wechat.util.WechatParseXmlUtil;
-import com.zr.wechat.wechatEntity.ClickButton;
-import com.zr.wechat.wechatEntity.ViewButton;
+import com.zr.qingchun.common.Constant;
+import com.zr.qingchun.common.HttpClient;
+import com.zr.qingchun.service.WechatService;
+import com.zr.qingchun.util.CheckUtil;
+import com.zr.qingchun.util.WechatParseXmlUtil;
+import com.zr.qingchun.wechatEntity.ClickButton;
+import com.zr.qingchun.wechatEntity.ViewButton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

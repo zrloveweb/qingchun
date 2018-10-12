@@ -1,4 +1,4 @@
-package com.zr.wechat.common;
+package com.zr.qingchun.common;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;

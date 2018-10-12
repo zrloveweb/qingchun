@@ -1,16 +1,16 @@
-package com.zr.wechat.wechatEntity;
+package com.zr.qingchun.wechatEntity;
 
 /**
- * @ClassName ViewButton
+ * @ClassName ClickButton
  * @Decription TODO
  * @Author Administrator
- * @Date 2018/9/21 0021 11:01
+ * @Date 2018/9/21 0021 11:02
  * Version 1.0
  **/
-public class ViewButton {
+public class ClickButton {
     private String type;
     private String name;
-    private String url;
+    private String key;
 
     public String getType() {
         return type;
@@ -28,11 +28,12 @@ public class ViewButton {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public String getKey() {
+        return key;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setKey(String key) {
+        this.key = key;
     }
+
 }

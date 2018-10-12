@@ -1,4 +1,4 @@
-package com.zr.wechat.wechatEntity;
+package com.zr.qingchun.wechatEntity;
 
 /**
  * @ClassName MessageType

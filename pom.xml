@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.zr</groupId>
-    <artifactId>wechat</artifactId>
+    <artifactId>qingchun</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>wechat</name>
+    <name>qingchun</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
@@ -47,12 +47,7 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.49</version>
         </dependency>
-        <!--热启动：每自修改后， 程序自动启动spring Application上下文。 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
+
 
         <dependency>
             <groupId>dom4j</groupId>
@@ -102,7 +97,12 @@
             <artifactId>druid</artifactId>
             <version>1.1.0</version>
         </dependency>
-
+        <!--热启动：每自修改后， 程序自动启动spring Application上下文。 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <build>

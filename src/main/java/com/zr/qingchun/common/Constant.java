@@ -1,4 +1,4 @@
-package com.zr.wechat.common;
+package com.zr.qingchun.common;
 
 /**
  * @ClassName Constant

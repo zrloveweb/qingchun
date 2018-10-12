@@ -1,6 +1,4 @@
-package com.zr.wechat.wechatEntity;
-
-import java.math.BigDecimal;
+package com.zr.qingchun.wechatEntity;
 
 /**
  * @ClassName PayEntity

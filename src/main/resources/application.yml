@@ -20,7 +20,7 @@ spring:
 
 mybatis:
   mapperLocations: classpath:mapping/*.xml
-  typeAliasesPackage: com.zr.wechat.model
+  typeAliasesPackage: com.zr.qingchun.model
 
 
 

@@ -1,13 +1,8 @@
-package com.zr.wechat.controller;
+package com.zr.qingchun.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.zr.wechat.mapper.UserMapper;
-import com.zr.wechat.model.User;
-import com.zr.wechat.model.UserExample;
-import com.zr.wechat.util.HttpClient;
-import com.zr.wechat.util.WXPayUtil;
-import com.zr.wechat.wechatEntity.PayEntity;
+import com.zr.qingchun.mapper.UserMapper;
+import com.zr.qingchun.model.User;
+import com.zr.qingchun.model.UserExample;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * @ClassName PayController

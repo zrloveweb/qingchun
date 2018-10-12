@@ -1,4 +1,4 @@
-package com.zr.wechat.util;
+package com.zr.qingchun.util;
 
 import org.w3c.dom.Document;
 

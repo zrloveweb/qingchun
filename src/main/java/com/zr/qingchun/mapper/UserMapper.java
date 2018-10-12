@@ -1,10 +1,9 @@
-package com.zr.wechat.mapper;
+package com.zr.qingchun.mapper;
 
-import com.zr.wechat.model.User;
-import com.zr.wechat.model.UserExample;
+import com.zr.qingchun.model.User;
+import com.zr.qingchun.model.UserExample;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

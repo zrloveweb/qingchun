@@ -1,10 +1,10 @@
-package com.zr.wechat.service;
+package com.zr.qingchun.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.zr.wechat.common.HttpClient;
-import com.zr.wechat.util.WechatParseXmlUtil;
-import com.zr.wechat.wechatEntity.TextMessage;
+import com.zr.qingchun.common.HttpClient;
+import com.zr.qingchun.util.WechatParseXmlUtil;
+import com.zr.qingchun.wechatEntity.TextMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

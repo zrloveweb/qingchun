@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zr.wechat.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.zr.wechat.model.User" >
+<mapper namespace="com.zr.qingchun.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.zr.qingchun.model.User" >
     <result column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
@@ -67,7 +67,7 @@
   <sql id="Base_Column_List" >
     id, name, phone
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.wechat.model.UserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.qingchun.model.UserExample" >
     select
     <if test="distinct" >
       distinct
@@ -81,19 +81,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.zr.wechat.model.UserExample" >
+  <delete id="deleteByExample" parameterType="com.zr.qingchun.model.UserExample" >
     delete from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.zr.wechat.model.User" >
+  <insert id="insert" parameterType="com.zr.qingchun.model.User" >
     insert into user (id, name, phone
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zr.wechat.model.User" >
+  <insert id="insertSelective" parameterType="com.zr.qingchun.model.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -118,7 +118,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zr.wechat.model.UserExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.zr.qingchun.model.UserExample" resultType="java.lang.Integer" >
     select count(*) from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />

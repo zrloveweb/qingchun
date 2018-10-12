@@ -1,8 +1,7 @@
-package com.zr.wechat.util;
+package com.zr.qingchun.util;
 
 import com.thoughtworks.xstream.XStream;
-import com.zr.wechat.wechatEntity.MessageType;
-import com.zr.wechat.wechatEntity.TextMessage;
+import com.zr.qingchun.wechatEntity.TextMessage;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;

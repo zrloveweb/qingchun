@@ -1,4 +1,4 @@
-package com.zr.wechat.model;
+package com.zr.qingchun.model;
 
 public class User {
     private Integer id;
