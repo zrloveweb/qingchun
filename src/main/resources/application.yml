@@ -5,9 +5,17 @@ spring:
   thymeleaf:
       prefix: classpath:/templates/
   mvc:
-      static-path-pattern: /static/**
+      static-path-pattern: /**
   resources:
       static-locations: classpath:/static/
+
+  # 热部署生效
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      #      classpath目录下的WEB-INF文件夹内容修改不重启
+      exclude: WEB-INF/**
 
   #数据源配置
   datasource:

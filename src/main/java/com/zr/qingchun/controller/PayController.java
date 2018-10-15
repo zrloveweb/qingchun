@@ -3,9 +3,14 @@ package com.zr.qingchun.controller;
 import com.zr.qingchun.mapper.UserMapper;
 import com.zr.qingchun.model.User;
 import com.zr.qingchun.model.UserExample;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,33 +25,77 @@ import java.util.List;
  * Version 1.0
  **/
 @Controller
+@Api(description = "测试接口")
 public class PayController {
     private final static Logger logger = LoggerFactory.getLogger(PayController.class);
 
     @Autowired
     private UserMapper userMapper;
+    @ApiOperation("用户登陆")
+    @ApiImplicitParams({@ApiImplicitParam(name = "userName",value = "用户名",required = true,dataType = "String",paramType="query"),
+            @ApiImplicitParam(name = "password",value = "密码",required = true,dataType = "String",paramType="query")})
+    @PostMapping(value = "/login1")
+    public ResponseEntity Login(@RequestParam String userName, @RequestParam  String password){
+        if (userName.equals("admin")&&password.equals("admin")){
+            return ResponseEntity.ok("OK");
+        }else{
+            return ResponseEntity.ok("Fail");
+        }
+    }
+
     /** 
      *@Author Zr
      *@Description  登录页面
      *@Param [request]
      *@return java.lang.String
      **/
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String myqq(HttpServletRequest request){
         logger.info(request.getParameter("accessToken"));
         logger.info(request.getParameter("openId"));
         return "login";
     }
-    @RequestMapping("/demo")
+
+    /**
+     *@Author Zr
+     *@Description  登录页面
+     *@Param [request]
+     *@return java.lang.String
+     **/
+    @GetMapping("/index")
+    public String index(){
+        return "index";
+    }
+    @ApiOperation("测试demo方法")
     @ResponseBody
-    public List demo(){
+    @GetMapping("/demo")
+    @ApiImplicitParams({@ApiImplicitParam(name = "age",value = "年龄",required = true,dataType = "String",paramType="query"),
+            @ApiImplicitParam(name = "name",value = "用户名",required = true,dataType = "String",paramType="query")})
+    public List demo(@RequestParam String age,@RequestParam String name){
        /* User user = new User();
         user.setName("小花");
         user.setPhone("1771001992");
         userMapper.insert(user);*/
         UserExample userExample = new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
-        criteria.andNameEqualTo("小明");
+        criteria.andNameEqualTo(name);
+        //criteria.andNameLike("小明");
+        List<User> list = userMapper.selectByExample(userExample);
+        return list;
+    }
+
+
+    @ApiOperation("测试postDemo方法")
+    @ResponseBody
+    @PostMapping("/demo")
+    public List postDemo(String age,String name){
+       /* User user = new User();
+        user.setName("小花");
+        user.setPhone("1771001992");
+        userMapper.insert(user);*/
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andNameEqualTo(name);
         //criteria.andNameLike("小明");
         List<User> list = userMapper.selectByExample(userExample);
         return list;
