@@ -49,12 +49,12 @@ public class PayController {
      *@Param [request]
      *@return java.lang.String
      **/
-    @GetMapping("/login")
+    /*@GetMapping("/login")
     public String myqq(HttpServletRequest request){
         logger.info(request.getParameter("accessToken"));
         logger.info(request.getParameter("openId"));
         return "login";
-    }
+    }*/
 
     /**
      *@Author Zr
@@ -62,26 +62,18 @@ public class PayController {
      *@Param [request]
      *@return java.lang.String
      **/
-    @GetMapping("/index")
+/*    @GetMapping("/index")
     public String index(){
         return "index";
-    }
+    }*/
     @ApiOperation("测试demo方法")
     @ResponseBody
     @GetMapping("/demo")
     @ApiImplicitParams({@ApiImplicitParam(name = "age",value = "年龄",required = true,dataType = "String",paramType="query"),
             @ApiImplicitParam(name = "name",value = "用户名",required = true,dataType = "String",paramType="query")})
-    public List demo(@RequestParam String age,@RequestParam String name){
-       /* User user = new User();
-        user.setName("小花");
-        user.setPhone("1771001992");
-        userMapper.insert(user);*/
-        UserExample userExample = new UserExample();
-        UserExample.Criteria criteria = userExample.createCriteria();
-        criteria.andNameEqualTo(name);
-        //criteria.andNameLike("小明");
-        List<User> list = userMapper.selectByExample(userExample);
-        return list;
+    public String demo(@RequestParam String age,@RequestParam String name){
+
+        return "ok";
     }
 
 
