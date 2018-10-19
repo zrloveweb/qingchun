@@ -1,8 +1,5 @@
 package com.zr.qingchun.controller;
 
-import com.zr.qingchun.mapper.UserMapper;
-import com.zr.qingchun.model.User;
-import com.zr.qingchun.model.UserExample;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -29,8 +26,6 @@ import java.util.List;
 public class PayController {
     private final static Logger logger = LoggerFactory.getLogger(PayController.class);
 
-    @Autowired
-    private UserMapper userMapper;
     @ApiOperation("用户登陆")
     @ApiImplicitParams({@ApiImplicitParam(name = "userName",value = "用户名",required = true,dataType = "String",paramType="query"),
             @ApiImplicitParam(name = "password",value = "密码",required = true,dataType = "String",paramType="query")})
@@ -85,12 +80,12 @@ public class PayController {
         user.setName("小花");
         user.setPhone("1771001992");
         userMapper.insert(user);*/
-        UserExample userExample = new UserExample();
-        UserExample.Criteria criteria = userExample.createCriteria();
-        criteria.andNameEqualTo(name);
+        //UserExample userExample = new UserExample();
+        //UserExample.Criteria criteria = userExample.createCriteria();
+        //criteria.andNameEqualTo(name);
         //criteria.andNameLike("小明");
-        List<User> list = userMapper.selectByExample(userExample);
-        return list;
+        //List<User> list = userMapper.selectByExample(userExample);
+        return null;
     }
     /**
      *@Author Zr
