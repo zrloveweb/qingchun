@@ -20,7 +20,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(getSecurityInterceptor())
                 .addPathPatterns("/**")//拦截所有路径文件
-                .excludePathPatterns("/login.html","/login","/css/**","/images/**","/js/**")//排除拦截的路径
+                .excludePathPatterns("/login.html","/login","/alipay/**","/css/**","/images/**","/js/**")//排除拦截的路径
                 .excludePathPatterns("/swagger-resources/**","/webjars/**", "/v2/**", "/swagger-ui.html/**");//排除拦截的路径
     }
 
