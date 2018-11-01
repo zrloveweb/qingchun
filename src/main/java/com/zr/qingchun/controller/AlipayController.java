@@ -58,7 +58,7 @@ public class AlipayController {
     @Value("${alipay.notify_url}")
     public   String NOTIFY_URL ;
 
-    @Value("${alipay.return_url")
+    @Value("${alipay.return_url}")
     public   String RETURN_URL ;
 
     //初始化的AlipayClient
@@ -69,10 +69,10 @@ public class AlipayController {
                        HttpServletResponse httpResponse) throws ServletException, IOException {
         AlipayClient alipayClient = new DefaultAlipayClient(GATEWAY_URL, APP_ID, MERCHANT_PRIVATE_KEY, FORMAT, CHARSET, ALIPAY_PUBLIC_KEY, SIGN_TYPE); //获得初始化的AlipayClient
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();//创建API对应的request
-        alipayRequest.setReturnUrl(RETURN_URL);
+        alipayRequest.setReturnUrl(RETURN_URL);//返回的returnUrl
         alipayRequest.setNotifyUrl(NOTIFY_URL);//在公共参数中设置回跳和通知地址
         alipayRequest.setBizContent("{" +
-                "    \"out_trade_no\":\"20150320010101018\"," +
+                "    \"out_trade_no\":\"20150320010101024\"," +
                 "    \"product_code\":\"FAST_INSTANT_TRADE_PAY\"," +
                 "    \"total_amount\":88.88," +
                 "    \"subject\":\"Iphone6 16G\"," +
@@ -175,7 +175,11 @@ public class AlipayController {
 	3、校验通知中的seller_id（或者seller_email) 是否为out_trade_no这笔单据的对应的操作方（有的时候，一个商户可能有多个seller_id/seller_email）
 	4、验证app_id是否为该商户本身。
 	*/
-
+	String keys = "";
+        for(String key : requestParams.keySet()){
+            keys += requestParams.get(key);
+        }
+    logger.info("异步返回的数据：{}",keys);
         if(signVerified) {//验证成功
             //商户订单号
             String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");

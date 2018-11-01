@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Author Administrator
  * @Date 2018/10/17 0017 10:56
  * Version 1.0
- **/
+ **//*
 public class MyInterceptor implements HandlerInterceptor {
     Logger log = LoggerFactory.getLogger(MyInterceptor.class);
     @Override
@@ -39,4 +39,4 @@ public class MyInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
     }
-}
+}*/

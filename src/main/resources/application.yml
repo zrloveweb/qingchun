@@ -3,11 +3,11 @@ server:
 
 spring:
   thymeleaf:
-      prefix: classpath:/templates/
+    prefix: classpath:/templates/
   mvc:
-      static-path-pattern: /**
+    static-path-pattern: /**
   resources:
-      static-locations: classpath:/static/
+    static-locations: classpath:/static/
 
   # 热部署生效
   devtools:
@@ -38,9 +38,9 @@ alipay:
   #支付宝公钥
   alipay_public_key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApBVZeWSspKCnQRVHt9QBNs+o544zlB1NOXP2CtFJuwOmmst/ngBbT3M+PrsqmUvvVn+T8+JHN/gDugRjn/9DX7sLLh5a0bQiLGIR3uXCavbcBb6eCrKEhzlwhjyX05HAqe8IUYUEUiMWbKy/LbOzAEsVB0RHCTdrkG4Oe73ypWOseTPMpzcfEzt7vZBy/MRbhksuN5b+9htgKHIJXMQ+g+9mADWBveECAW2CpeANYQQIjyzzKptuVeQUfQToC5C155geqdIg/k1KINnf+im3uLxOmW0poRVsUyNCxcPfXK9CE0rsUtYeiWqBh7giPQf8FbRZiXl6HxUrPeCCi2JAIQIDAQAB
   #异步通知返回路径
-  notify_url: http://e229a180.ngrok.io/alipay/notifyUrl
+  notify_url: http://f7cfa8bd.ngrok.io/alipay/notifyUrl
   #同步返回页面的url
-  return_url: http://e229a180.ngrok.io/alipay/returnUrl
+  return_url: http://f7cfa8bd.ngrok.io/alipay/returnUrl
   #延签方式
   sign_type: RSA2
   #字符编码
