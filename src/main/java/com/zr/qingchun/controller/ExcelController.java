@@ -1,9 +1,12 @@
 package com.zr.qingchun.controller;
 
+import com.zr.qingchun.test.CalPriceFactory;
+import com.zr.qingchun.test.ceLueModel.ParamChain;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.util.StringUtils;
@@ -16,6 +19,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,8 +31,15 @@ import java.util.Map;
 @Controller
 public class ExcelController {
 
+
+    @Autowired
+    private CalPriceFactory cl;
+
+    @Autowired
+    private ParamChain paramChain;
     @RequestMapping("info")
     public void info(HttpServletRequest request, HttpServletResponse response){
+        paramChain.get();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("sequence", "0001");
         map.put("date", "2018/01/04");
