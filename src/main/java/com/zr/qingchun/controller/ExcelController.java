@@ -1,6 +1,7 @@
 package com.zr.qingchun.controller;
 
 import com.zr.qingchun.test.CalPriceFactory;
+import com.zr.qingchun.test.ceLueModel.Fruit;
 import com.zr.qingchun.test.ceLueModel.ParamChain;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -36,9 +37,14 @@ public class ExcelController {
     private CalPriceFactory cl;
 
     @Autowired
+    private List<Fruit> fruits;//注入接口（会注入所有实现类）
+
+    @Autowired
     private ParamChain paramChain;
     @RequestMapping("info")
     public void info(HttpServletRequest request, HttpServletResponse response){
+        System.out.println(fruits.size());;
+
         paramChain.get();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("sequence", "0001");
