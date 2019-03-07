@@ -1,6 +1,9 @@
 package com.zr.wechat;
 
 import org.junit.Test;
+import org.redisson.Redisson;
+import org.redisson.api.*;
+import org.redisson.config.Config;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
 
@@ -36,29 +39,36 @@ public class RedisGoodsKill {
 
     static int goodsNum = 20;
 
-    public static void main11(String[] args) {
+    public static void main(String[] args) {
+        Jedis jedis1 = new Jedis("localhost", 6379);
+        jedis1.set("goodsnum","10");
+        jedis1.close();
+
+
+
+
 
         ExecutorService executorService = Executors.newFixedThreadPool(100);
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
                     Jedis jedis = new Jedis("localhost", 6379);
                     try {
 
-                        if (jedis.setnx("qingchunLock", "lock") == 1) {
+                        //if (jedis.setnx("qingchunLock", "lock") == 1) {
 
-                            jedis.expire("qingchunLock", 1);
-                            int goodsPhoneP9Num = Integer.parseInt(jedis.get("goodsPhoneP9Num"));
+                            //jedis.expire("qingchunLock", 1);
+                            int goodsPhoneP9Num = Integer.parseInt(jedis.get("goodsnum"));
                             if (goodsPhoneP9Num > 0) {
-                                jedis.decr("goodsPhoneP9Num");
+                                jedis.decr("goodsnum");
                                 System.err.println(Thread.currentThread().getName() + " 抢购成功！");
                             } else {
                                 System.out.println(Thread.currentThread().getName() + " 剩余商品不足！");
                             }
-                        } else {
-                            System.out.println(Thread.currentThread().getName() + "抢购失败!");
-                        }
+                       // } else {
+                         //   System.out.println(Thread.currentThread().getName() + "抢购失败!");
+                       // }
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -77,7 +87,12 @@ public class RedisGoodsKill {
      * 采用redis事务做秒杀活动活动
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main33(String[] args) {
+        Jedis jedis1 = new Jedis("localhost", 6379);
+        jedis1.set("goodsPhoneP9Num","10");
+        jedis1.close();
+
+
 
         ExecutorService executorService = Executors.newFixedThreadPool(100);
         for (int i = 0; i < 100; i++) {
@@ -99,12 +114,11 @@ public class RedisGoodsKill {
                                 System.out.println(Thread.currentThread().getName() + " 抢购失败~" + list);
 
                             }
+                        }else{
+                            System.out.println("抢购失败");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                    } finally {
-                        jedis.del("qingchunLock");
-                        jedis.close();
                     }
 
                 }
@@ -112,41 +126,50 @@ public class RedisGoodsKill {
 
         }
     }
+    public static  RedissonClient getClient(){
 
-    @Test
-    public void lockTest03() {
+        Config config = new Config();
+
+        config.useSingleServer().setAddress("redis://127.0.0.1:6379");
+
+        RedissonClient redisson = Redisson.create(config);
+
+        return redisson;
+
+    }
+
+    public static void main55(String[] args) {
+
+        RedissonClient client1 = RedisGoodsKill.getClient();
+        RAtomicLong atomicLock = client1.getAtomicLong("huaWeiP9Num");
+        atomicLock.set(10);
+
         ExecutorService executorService = Executors.newFixedThreadPool(100);
-        for (int i = 0; i < 1000; i++) {
+        for(int i = 0; i< 100 ;i++){
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
-                    Jedis jedis = new Jedis("localhost", 6379);
+                    RedissonClient client = RedisGoodsKill.getClient();
+                    RLock redissionLock = client.getLock("redissionLock");
+                    redissionLock.lock();
                     try {
+                        RAtomicLong atomicLock = client.getAtomicLong("huaWeiP9Num");
+                        long andDecrement = atomicLock.get();
+                        if(andDecrement <= 0){
 
-                        jedis.watch("goodsPhoneP9Num");
-                        int goodsPhoneP9Num = Integer.parseInt(jedis.get("goodsPhoneP9Num"));
-                        if (goodsPhoneP9Num > 0) {
-                            Transaction multi = jedis.multi();
-                            multi.decr("goodsPhoneP9Num");
-                            List<Object> list = multi.exec();
-                            if (list != null) {
-
-                                System.err.println(Thread.currentThread().getName() + " 抢购成功!" + list);
-                            } else {
-                                System.out.println(Thread.currentThread().getName() + " 抢购失败~");
-
-                            }
+                            System.err.println("抢购失败!");
+                        }else{
+                            long andDecrement1 = atomicLock.getAndDecrement();
+                            System.out.println("抢购成功!剩余数：" + andDecrement1);
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        jedis.del("qingchunLock");
-                        jedis.close();
-                    }
 
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    } finally{
+                        redissionLock.unlock();
+                    }
                 }
             });
-
         }
     }
 
