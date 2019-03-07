@@ -2,7 +2,6 @@ package com.zr.wechat;
 
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Response;
 import redis.clients.jedis.Transaction;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public class RedisGoodsKill {
 
     static int goodsNum = 20;
 
-    public static void main(String[] args) {
+    public static void main11(String[] args) {
 
         ExecutorService executorService = Executors.newFixedThreadPool(100);
         for (int i = 0; i < 10000; i++) {
@@ -74,13 +73,143 @@ public class RedisGoodsKill {
 
     }
 
+    /**
+     * 采用redis事务做秒杀活动活动
+     * @param args
+     */
+    public static void main(String[] args) {
+
+        ExecutorService executorService = Executors.newFixedThreadPool(100);
+        for (int i = 0; i < 100; i++) {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    Jedis jedis = new Jedis("localhost", 6379);
+                    try {
+                        jedis.watch("goodsPhoneP9Num");
+                        int goodsPhoneP9Num = Integer.parseInt(jedis.get("goodsPhoneP9Num"));
+                        if (goodsPhoneP9Num > 0) {
+                            Transaction multi = jedis.multi();
+                            multi.decr("goodsPhoneP9Num");
+                            List<Object> list = multi.exec();
+                            if (list != null && list.size() > 0) {
+
+                                System.err.println(Thread.currentThread().getName() + " 抢购成功!" + list.get(0));
+                            } else {
+                                System.out.println(Thread.currentThread().getName() + " 抢购失败~" + list);
+
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        jedis.del("qingchunLock");
+                        jedis.close();
+                    }
+
+                }
+            });
+
+        }
+    }
+
+    @Test
+    public void lockTest03() {
+        ExecutorService executorService = Executors.newFixedThreadPool(100);
+        for (int i = 0; i < 1000; i++) {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    Jedis jedis = new Jedis("localhost", 6379);
+                    try {
+
+                        jedis.watch("goodsPhoneP9Num");
+                        int goodsPhoneP9Num = Integer.parseInt(jedis.get("goodsPhoneP9Num"));
+                        if (goodsPhoneP9Num > 0) {
+                            Transaction multi = jedis.multi();
+                            multi.decr("goodsPhoneP9Num");
+                            List<Object> list = multi.exec();
+                            if (list != null) {
+
+                                System.err.println(Thread.currentThread().getName() + " 抢购成功!" + list);
+                            } else {
+                                System.out.println(Thread.currentThread().getName() + " 抢购失败~");
+
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        jedis.del("qingchunLock");
+                        jedis.close();
+                    }
+
+                }
+            });
+
+        }
+    }
+
+
     @Test
     public void lockTest01() {
-        final Jedis jedis = new Jedis("localhost", 6379);
-        jedis.set("goodsPhoneP9Num", "10");
-        jedis.close();
+        ExecutorService executorService = Executors.newFixedThreadPool(100);
 
+        for (int i = 0; i < 100; i++) {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    Jedis jedis = new Jedis("localhost",6379);
+                    System.out.println(jedis);
+
+                }
+            });
+        }
     }
+
+
+
+
+        /*jedis.hset("hsetKey","set001","001");
+        jedis.hset("hsetKey","set002","002");
+        jedis.hset("hsetKey","set003","003");
+
+        String hget = jedis.hget("hsetKey", "set001");
+        System.out.println(hget);
+        Map<String, String> hsetKey = jedis.hgetAll("hsetKey");
+        System.out.println(hsetKey);
+        Set<String> hsetKey = jedis.hkeys("hsetKey");
+        System.out.println(hsetKey);
+        List<String> hsetKey = jedis.hvals("hsetKey");
+        System.out.println(hsetKey);
+        jedis.close();
+        jedis.lpush("listData","10","20","20","30","40");
+
+        System.out.println(jedis.llen("listData"));
+        System.out.println(jedis.lindex("listData",jedis.llen("listData")-1));
+        System.out.println(jedis.lrange("listData",0,-1));
+        //jedis.blpop("listData");
+        List<String> listData = jedis.blpop(1, "listData");
+        System.out.println(listData);
+
+        jedis.sadd("setData","你好","你好","早上好");
+        Set<String> setData = jedis.smembers("setData");
+        System.out.println(jedis.scard("setData"));
+        System.out.println(jedis.sismember("setData","你好"));
+        System.out.println(setData);
+
+
+
+        jedis.zadd("zSetAdd",10,"十");
+        jedis.zadd("zSetAdd",9,"9");
+        jedis.zadd("zSetAdd",9,"6.2");
+        jedis.zadd("zSetAdd",8,"8");
+        jedis.zadd("zSetAdd",7,"6.1");
+        jedis.zadd("zSetAdd",6,"6");
+
+        System.out.println(jedis.zrange("zSetAdd",0,-1));*/
+
+
 }
 
 
