@@ -8,6 +8,12 @@ package com.zr.qingchun.common;
  * Version 1.0
  **/
 public class Constant {
-    public static final String appId = "wxb258740749f5194d";
-    public static final String secretId = "0b3791bb6f954d3070a793c4073f2647";
+    public static final String appId = "wx79c627ca37bf8d7c";
+    public static final String secretId = "32db9e90306b95523af1430ce86f6463";
+
+
+    /**
+     * 存入map中你的key
+     */
+    public static final String accesstoken  = "accesstoken";
 }

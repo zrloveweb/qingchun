@@ -10,11 +10,14 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 import com.alibaba.fastjson.JSONObject;
+import com.zr.qingchun.controller.WechatController;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Http请求
@@ -24,6 +27,9 @@ import org.apache.http.util.EntityUtils;
 public class HttpClient {
     private static final int TIMEOUT = 45000;
     public static final String ENCODING = "UTF-8";
+
+
+    private final static Logger logger = LoggerFactory.getLogger(WechatController.class);
 
     /**
      * 创建HTTP连接
@@ -477,6 +483,7 @@ public class HttpClient {
         JSONObject jsonObject = null;
         String result="";
         try {
+            logger.info("post request url : {}", url);
             httpPost.setEntity(new StringEntity(outStr,"utf-8"));
             HttpResponse response = httpClient.execute(httpPost);
             result = EntityUtils.toString(response.getEntity(),"utf-8");
