@@ -148,8 +148,8 @@ public class WechatController {
      * @Param []
      **/
     @RequestMapping(value = "/sendTemplate", method = RequestMethod.GET)
-    public JSONObject sendTemplate() {
-        return wechatService.sendTemplate();
+    public JSONObject sendTemplate(String template) {
+        return wechatService.sendTemplate(template);
     }
 
 

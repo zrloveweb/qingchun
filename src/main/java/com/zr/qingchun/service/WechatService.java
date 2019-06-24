@@ -107,38 +107,53 @@ public class WechatService {
      * @Description 发送模板
      * @Param [accessToken]
      **/
-    public JSONObject sendTemplate() {
-        String templateJson="{\n"+
-                "\"touser\":\"oDRzd5hG0otYeijHNlsI2-x-M_gw\",\n"+
-                "\"template_id\":\"yCqLyegNqX38kxdjdDf2nxocXvI_x486HPnQkOpBvfM\",\n"+
-                "\"url\":\"\",\n"+
-                "\"miniprogram\":{\n"+
-                "\"appid\":\"\",\n"+
-                "\"pagepath\":\"\"\n"+
-                "},\n"+
-                "\"data\":{\n"+
-                "\"first\":{\n"+
-                "\"value\":\"恭喜你购买成功！\",\n"+
-                "\"color\":\"#173177\"\n"+
-                "},\n"+
-                "\"name\":{\n"+
-                "\"value\":\"tom\",\n"+
-                "\"color\":\"red\"\n"+
-                "},\n"+
-                "\"sex\":{\n"+
-                "\"DATA\":\"北京\",\n"+
-                "\"color\":\"red\"\n"+
-                "},\n"+
-                "\"demo\":{\n"+
-                "\"value\":\"2014年9月22日\",\n"+
-                "\"color\":\"#173177\"\n"+
-                "},\n"+
-                "\"remark\":{\n"+
-                "\"value\":\"欢迎再次购买！\",\n"+
-                "\"color\":\"#173177\"\n"+
-                "}\n"+
-                "}\n"+
-                "}";
+    public JSONObject sendTemplate(String template) {
+        /**
+         * 正式开发需要把字符串 按照数据类型定义成类
+         */
+        String templateJson="\n" +
+                "\n" +
+                "\n" +
+                "                 {\n" +
+                "           \"touser\":\"oDRzd5hG0otYeijHNlsI2-x-M_gw\",\n" +
+                "           \"template_id\":\"" +template +
+                "\",\n" +
+                "           \"url\":\"\",  \n" +
+                "           \"miniprogram\":{\n" +
+                "             \"appid\":\"\",\n" +
+                "             \"pagepath\":\"\"\n" +
+                "           },          \n" +
+                "           \"data\":{\n" +
+                "                   \"first\": {\n" +
+                "                       \"value\":\"恭喜你购买成功！\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword1\":{\n" +
+                "                       \"value\":\"巧克力\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword2\": {\n" +
+                "                       \"value\":\"39.8元\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword3\": {\n" +
+                "                       \"value\":\"2014年9月22日\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"remark\":{\n" +
+                "                       \"value\":\"欢迎再次购买！\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"sex\":{\n" +
+                "                       \"value\":\"男\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"name\":{\n" +
+                "                       \"value\":\"赵日天\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   }\n" +
+                "           }\n" +
+                "       }";
         JSONObject jsonObject = JSONObject.parseObject(templateJson);
         String requestUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + WechatToken.getToken();
         JSONObject resultJson = restTemplateRequest.restTemplatePost(requestUrl, jsonObject);
