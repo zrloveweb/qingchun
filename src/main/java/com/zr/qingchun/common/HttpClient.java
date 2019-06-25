@@ -1,4 +1,5 @@
 package com.zr.qingchun.common;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -9,8 +10,11 @@ import java.util.Map;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
+
 import com.alibaba.fastjson.JSONObject;
 import com.zr.qingchun.controller.WechatController;
+import com.zr.qingchun.util.WXPayUtil;
+import com.zr.qingchun.util.WXPayXmlUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -21,8 +25,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Http请求
- * @author mszhou
  *
+ * @author mszhou
  */
 public class HttpClient {
     private static final int TIMEOUT = 45000;
@@ -34,14 +38,10 @@ public class HttpClient {
     /**
      * 创建HTTP连接
      *
-     * @param url
-     *            地址
-     * @param method
-     *            方法
-     * @param headerParameters
-     *            头信息
-     * @param body
-     *            请求内容
+     * @param url              地址
+     * @param method           方法
+     * @param headerParameters 头信息
+     * @param body             请求内容
      * @return
      * @throws Exception
      */
@@ -98,7 +98,8 @@ public class HttpClient {
 
     /**
      * POST请求
-     * @param address 请求地址
+     *
+     * @param address          请求地址
      * @param headerParameters 参数
      * @param body
      * @return
@@ -113,6 +114,7 @@ public class HttpClient {
 
     /**
      * GET请求
+     *
      * @param address
      * @param headerParameters
      * @param body
@@ -128,6 +130,7 @@ public class HttpClient {
 
     /**
      * 读取网络文件
+     *
      * @param address
      * @param headerParameters
      * @param file
@@ -180,6 +183,7 @@ public class HttpClient {
 
     /**
      * 读取文件流
+     *
      * @param in
      * @return
      * @throws Exception
@@ -243,14 +247,10 @@ public class HttpClient {
     /**
      * HTTP请求
      *
-     * @param address
-     *            地址
-     * @param method
-     *            方法
-     * @param headerParameters
-     *            头信息
-     * @param body
-     *            请求内容
+     * @param address          地址
+     * @param method           方法
+     * @param headerParameters 头信息
+     * @param body             请求内容
      * @return
      * @throws Exception
      */
@@ -289,6 +289,7 @@ public class HttpClient {
 
     /**
      * 将参数化为 body
+     *
      * @param params
      * @return
      */
@@ -298,6 +299,7 @@ public class HttpClient {
 
     /**
      * 将参数化为 body
+     *
      * @param params
      * @return
      */
@@ -330,6 +332,7 @@ public class HttpClient {
 
     /**
      * 读取inputStream 到 string
+     *
      * @param input
      * @param encoding
      * @return
@@ -352,6 +355,7 @@ public class HttpClient {
 
     /**
      * 设置 https 请求
+     *
      * @throws Exception
      */
     private static void trustAllHttpsCertificates() throws Exception {
@@ -372,7 +376,7 @@ public class HttpClient {
 
 
     //设置 https 请求证书
-    static class miTM implements javax.net.ssl.TrustManager,javax.net.ssl.X509TrustManager {
+    static class miTM implements javax.net.ssl.TrustManager, javax.net.ssl.X509TrustManager {
 
         public java.security.cert.X509Certificate[] getAcceptedIssuers() {
             return null;
@@ -434,15 +438,13 @@ public class HttpClient {
     }
 
 
-
     public static String postServer(String url, String param) {
         URL u = null;
         HttpURLConnection con = null;
         url = url + param;
-        try
-        {
+        try {
             u = new URL(url);
-            con = (HttpURLConnection)u.openConnection();
+            con = (HttpURLConnection) u.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
             con.setDoInput(true);
@@ -469,28 +471,52 @@ public class HttpClient {
             String temp;
             while ((temp = br.readLine()) != null)
                 buffer.append(temp);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return buffer.toString();
     }
 
-    public static JSONObject doPostStr(String url,String outStr){
+    /**
+     * post请求，返回值会json
+     *
+     * @param url
+     * @param outStr
+     * @return
+     */
+    public static JSONObject doPostStr(String url, String outStr) {
+        return JSONObject.parseObject(sendPost(url, outStr));
+    }
 
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(url);
-        JSONObject jsonObject = null;
-        String result="";
+    /**
+     * 微信post请求，xml返回值转换为map
+     *
+     * @param url
+     * @param outStr
+     * @return
+     */
+    public static Map<String, String> doPostMap(String url, String outStr) {
+        Map<String, String> resultMap = null;
         try {
-            logger.info("post request url : {}", url);
-            httpPost.setEntity(new StringEntity(outStr,"utf-8"));
-            HttpResponse response = httpClient.execute(httpPost);
-            result = EntityUtils.toString(response.getEntity(),"utf-8");
+           return WXPayUtil.xmlToMap(sendPost(url, outStr));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        jsonObject = JSONObject.parseObject(result);
-        return jsonObject;
+        return null;
+    }
+
+    private static String sendPost(String url, String outStr) {
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(url);
+        String result = "";
+        try {
+            logger.info("post request url : {}", url);
+            httpPost.setEntity(new StringEntity(outStr, "utf-8"));
+            HttpResponse response = httpClient.execute(httpPost);
+            result = EntityUtils.toString(response.getEntity(), "utf-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

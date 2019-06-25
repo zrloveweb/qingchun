@@ -19,9 +19,9 @@ spring:
 
   #数据源配置
   datasource:
-    url: jdbc:mysql://119.29.0.105:3306/qingchun?useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: zhaorui
+    url: jdbc:mysql://114.215.198.87:3306/activity_test?useUnicode=true&characterEncoding=utf-8
+    username: devtest
+    password: devtest123
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     connectionProperties: druid.stat.mergeSql=true
@@ -47,3 +47,30 @@ alipay:
   charset: utf-8
   #支付宝网关
   gatewayUrl: https://openapi.alipaydev.com/gateway.do
+
+#微信配置
+wx:
+  appid:
+  mch_id:
+  notify_url: http://www.baidu.com
+
+
+#微信接口API
+wxapi:
+  #native支付统一下单接口
+  unifieorderUrl: https://api.mch.weixin.qq.com/pay/unifiedorder
+  #获取行业信息
+  getInsustryUrl: https://api.weixin.qq.com/cgi-bin/template/get_industry
+  #发送模板信息
+  sendTemplateUrl: https://api.weixin.qq.com/cgi-bin/message/template/send
+  #创建行业模板
+  apiSetIndustryUrl: https://api.weixin.qq.com/cgi-bin/template/api_set_industry
+  #获得模板id
+  apiAddTemplateUrl: https://api.weixin.qq.com/cgi-bin/template/api_add_template
+  #通过模板id 删除模板
+  delPrivateTemplateUrl: https://api.weixin.qq.com/cgi-bin/template/del_private_template
+  #获取模板列表
+  getAllPrivateTemplateUrl: https://api.weixin.qq.com/cgi-bin/template/get_all_private_template
+
+
+

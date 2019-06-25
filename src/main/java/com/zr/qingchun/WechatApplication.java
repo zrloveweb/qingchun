@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication(scanBasePackages = "com.zr.qingchun")
+@SpringBootApplication
 @MapperScan("com.zr.qingchun.mapper")
 @EnableCaching
 public class  WechatApplication {
