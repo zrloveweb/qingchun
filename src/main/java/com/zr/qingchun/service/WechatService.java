@@ -5,6 +5,7 @@ import com.github.wxpay.sdk.WXPayUtil;
 import com.google.zxing.WriterException;
 import com.zr.qingchun.common.HttpClient;
 import com.zr.qingchun.common.RestTemplateRequest;
+import com.zr.qingchun.common.ResultDto;
 import com.zr.qingchun.common.wechat.WechatToken;
 import com.zr.qingchun.util.FileToBase64;
 import com.zr.qingchun.util.QrcodeUtil;
@@ -46,7 +47,7 @@ public class WechatService {
     /**
      * 微信商户号
      */
-    @Value("${wx.mchId}")
+    @Value("${wx.mch_id}")
     private String mchId;
 
     /**
@@ -279,8 +280,9 @@ public class WechatService {
      *
      * @return
      */
-    public String getPayQrcode() {
-
+    public ResultDto<String> getPayQrcode() {
+        ResultDto<String> resultDto = new ResultDto<>();
+        resultDto.success();
         Map<String, String> paramMap = new HashMap<>();
         //交易类型
         paramMap.put("trade_type", "NATIVE");
@@ -327,7 +329,8 @@ public class WechatService {
             FileInputStream fileInputStream = new FileInputStream(new File("E:\\weixn.png"));
             String base64FromInputStream = FileToBase64.getBase64FromInputStream(fileInputStream);
             log.info("payBase64 img :{}", base64FromInputStream);
-            return base64FromInputStream;
+            resultDto.setData(base64FromInputStream);
+            return resultDto;
         } catch (WriterException e) {
             e.printStackTrace();
         } catch (IOException e) {

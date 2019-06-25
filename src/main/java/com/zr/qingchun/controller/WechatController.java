@@ -2,14 +2,8 @@ package com.zr.qingchun.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.zr.qingchun.common.Constant;
 import com.zr.qingchun.common.HttpClient;
+import com.zr.qingchun.common.ResultDto;
 import com.zr.qingchun.common.wechat.WechatToken;
 import com.zr.qingchun.service.WechatService;
 import com.zr.qingchun.util.CheckUtil;
@@ -22,11 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -270,9 +259,8 @@ public class WechatController {
      * 生成微信支付二维码
      * @return
      */
-    @ResponseBody
     @RequestMapping(value = "/payQrcode",method = RequestMethod.GET)
-    public String getPayQrcode(){
+    public ResultDto<String> getPayQrcode(){
         return wechatService.getPayQrcode();
     }
 
