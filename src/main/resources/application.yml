@@ -52,6 +52,7 @@ alipay:
 wx:
   appid:
   mch_id:
+  key:
   notify_url: http://www.baidu.com
 
 

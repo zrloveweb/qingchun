@@ -51,6 +51,12 @@ public class WechatService {
     private String mchId;
 
     /**
+     * 微信key
+     */
+    @Value("${wx.key}")
+    private String key;
+
+    /**
      * 微信异步回调地址
      */
     @Value("${wx.notify_url}")
@@ -308,7 +314,7 @@ public class WechatService {
         String xmlData = null;
         try {
             //根据微信签名规则，生成签名
-            paramMap.put("sign", WXPayUtil.generateSignature(paramMap, "74a4ce90585b44349b562485ee98b832"));
+            paramMap.put("sign", WXPayUtil.generateSignature(paramMap, key));
             xmlData = mapToXml(paramMap);
         } catch (Exception e) {
             e.printStackTrace();
