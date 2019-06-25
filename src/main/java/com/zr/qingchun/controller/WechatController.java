@@ -88,7 +88,7 @@ public class WechatController {
      * @Param []
      **/
     @RequestMapping(value = "/setIndustry", method = RequestMethod.GET)
-    public JSONObject setIndustry() {
+    public ResultDto<String> setIndustry() {
         return wechatService.setIndustry();
     }
 
@@ -99,7 +99,7 @@ public class WechatController {
      * @Param []
      **/
     @RequestMapping(value = "/getIndustry", method = RequestMethod.GET)
-    public JSONObject getIndustry() {
+    public ResultDto<String> getIndustry() {
         return wechatService.getIndustry();
     }
 
@@ -110,7 +110,7 @@ public class WechatController {
      * @Param []
      **/
     @RequestMapping(value = "/getTemplateId", method = RequestMethod.GET)
-    public JSONObject getTemplateId() {
+    public ResultDto<String> getTemplateId() {
         return wechatService.getTemplateId();
     }
 
@@ -122,18 +122,18 @@ public class WechatController {
      * @Param []
      **/
     @RequestMapping(value = "/getTemplateList", method = RequestMethod.GET)
-    public JSONObject getTemplateList() {
+    public ResultDto<String> getTemplateList() {
         return wechatService.getTemplateList();
     }
 
     /**
      * @return JSONObject
      * @Author Zr
-     * @Description  通过模板id 删除模板
+     * @Description 通过模板id 删除模板
      * @Param []
      **/
     @RequestMapping(value = "/deleteTemplate", method = RequestMethod.GET)
-    public JSONObject deleteTemplate(@RequestParam("templateId") String templateId) {
+    public ResultDto<String> deleteTemplate(@RequestParam("templateId") String templateId) {
         return wechatService.deleteTemplate(templateId);
     }
 
@@ -141,11 +141,11 @@ public class WechatController {
     /**
      * @return JSONObject
      * @Author Zr
-     * @Description  发送模板消息
+     * @Description 发送模板消息
      * @Param []
      **/
     @RequestMapping(value = "/sendTemplate", method = RequestMethod.GET)
-    public JSONObject sendTemplate(String template) {
+    public ResultDto<String> sendTemplate(String template) {
         return wechatService.sendTemplate(template);
     }
 
@@ -157,7 +157,7 @@ public class WechatController {
      * @Param []
      **/
     @RequestMapping("/getUserWechatInfo")
-    public String getUserWechatInfo() {
+    public ResultDto<String> getUserWechatInfo() {
         return null;
     }
 
@@ -169,7 +169,7 @@ public class WechatController {
      * @Param []
      **/
     @RequestMapping("/click")
-    public JSONObject click() {
+    public ResultDto<String> click() {
         return createMenu();
     }
 
@@ -179,7 +179,7 @@ public class WechatController {
      * @return
      */
     @RequestMapping("/deleteMenu")
-    public String deleteMenu() {
+    public ResultDto<String> deleteMenu() {
         return deleteMenuMethod();
     }
 
@@ -188,8 +188,9 @@ public class WechatController {
      *
      * @return
      */
-    public JSONObject createMenu() {
-
+    public ResultDto<String> createMenu() {
+        ResultDto<String> resultDto = new ResultDto<>();
+        resultDto.success();
         ClickButton cbt = new ClickButton();
         cbt.setKey("image");
         cbt.setName("时尚新闻");
@@ -232,7 +233,8 @@ public class WechatController {
         } catch (Exception e) {
             System.out.println("请求错误！");
         }
-        return rs;
+        resultDto.setData(rs.toString());
+        return resultDto;
     }
 
 
@@ -241,7 +243,9 @@ public class WechatController {
      *
      * @return
      */
-    public String deleteMenuMethod() {
+    public ResultDto<String> deleteMenuMethod() {
+        ResultDto<String> resultDto = new ResultDto<>();
+        resultDto.success();
         HashMap<String, String> hashMapParam = new HashMap<>(4);
         hashMapParam.put("access_token", WechatToken.getToken());
         String rs = null;
@@ -252,18 +256,19 @@ public class WechatController {
             e.printStackTrace();
             System.out.println("请求错误！");
         }
-        return rs;
+        resultDto.setData(rs.toString());
+        return resultDto;
     }
 
     /**
      * 生成微信支付二维码
+     *
      * @return
      */
-    @RequestMapping(value = "/payQrcode",method = RequestMethod.GET)
-    public ResultDto<String> getPayQrcode(){
+    @RequestMapping(value = "/payQrcode", method = RequestMethod.GET)
+    public ResultDto<String> getPayQrcode() {
         return wechatService.getPayQrcode();
     }
-
 
 
 }

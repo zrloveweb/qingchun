@@ -151,14 +151,17 @@ public class WechatService {
      * @Author Zr
      * @Description 创建行业模板     *@Param []
      */
-    public JSONObject setIndustry() {
+    public ResultDto<String> setIndustry() {
+        ResultDto<String> resultDto = new ResultDto<>();
+        resultDto.success();
         String industryStr = "{\n" +
                 "          \"industry_id1\":\"1\",\n" +
                 "          \"industry_id2\":\"4\"\n" +
                 "       }";
         JSONObject resultJson = HttpClient.doPostStr(apiSetIndustryUrl + "?access_token=" + WechatToken.getToken(), industryStr);
         log.info("创建行业模板： " + resultJson);
-        return resultJson;
+        resultDto.setData(resultJson.toString());
+        return resultDto;
     }
 
 
@@ -168,14 +171,16 @@ public class WechatService {
      * @Description 获取行业信息
      * @Param [accessToken]
      **/
-    public JSONObject getIndustry() {
+    public ResultDto<String> getIndustry() {
+        ResultDto<String> resultDto = new ResultDto<>();
+        resultDto.success();
         //restTemplate 请求方式
         String requestUrl = getInsustryUrl + "?access_token=" + WechatToken.getToken();
         ResponseEntity responseEntity = restTemplateRequest.restTemplateGet(requestUrl, String.class);
         log.info("reponse body value :{}", responseEntity.getBody());
         JSONObject resultIndustry = JSONObject.parseObject(responseEntity.getBody().toString());
-
-        return resultIndustry;
+        resultDto.setData(resultIndustry.toString());
+        return resultDto;
     }
 
     /**
@@ -184,7 +189,9 @@ public class WechatService {
      * @Description 发送模板
      * @Param [accessToken]
      **/
-    public JSONObject sendTemplate(String template) {
+    public ResultDto<String> sendTemplate(String template) {
+        ResultDto<String> resultDto = new ResultDto<>();
+        resultDto.success();
         /**
          * 正式开发需要把字符串 按照数据类型定义成类
          */
@@ -234,7 +241,8 @@ public class WechatService {
         JSONObject jsonObject = JSONObject.parseObject(templateJson);
         String requestUrl = sendTemplateUrl + "?access_token=" + WechatToken.getToken();
         JSONObject resultJson = restTemplateRequest.restTemplatePost(requestUrl, jsonObject);
-        return resultJson;
+        resultDto.setData(resultJson.toString());
+        return resultDto;
     }
 
 
@@ -243,7 +251,9 @@ public class WechatService {
      *
      * @return
      */
-    public JSONObject getTemplateId() {
+    public ResultDto<String> getTemplateId() {
+        ResultDto<String> resultDto = new ResultDto<>();
+        resultDto.success();
         String requestUrl = apiAddTemplateUrl + "?access_token=" + WechatToken.getToken();
         JSONObject data = new JSONObject();
         data.put("template_id_short", "TM00015");
@@ -251,7 +261,8 @@ public class WechatService {
 
         //{"errcode":0,"errmsg":"ok","template_id":"mg709hI7BT8EFTW5XZqVnCAThEHsQ6U2j-aLl9x_RhU"}
         log.info("reponse body value :{}", jsonObject);
-        return jsonObject;
+        resultDto.setData(jsonObject.toString());
+        return resultDto;
     }
 
     /**
@@ -259,11 +270,15 @@ public class WechatService {
      *
      * @return
      */
-    public JSONObject getTemplateList() {
+    public ResultDto<String> getTemplateList() {
+        ResultDto<String> resultDto = new ResultDto<>();
+        resultDto.success();
+
         String requestUrl = getAllPrivateTemplateUrl + "?access_token=" + WechatToken.getToken();
         ResponseEntity responseEntity = restTemplateRequest.restTemplateGet(requestUrl, String.class);
         JSONObject jsonObject = JSONObject.parseObject(responseEntity.getBody().toString());
-        return jsonObject;
+        resultDto.setData(jsonObject.toString());
+        return resultDto;
     }
 
 
@@ -272,12 +287,15 @@ public class WechatService {
      *
      * @return
      */
-    public JSONObject deleteTemplate(String templateId) {
+    public ResultDto<String> deleteTemplate(String templateId) {
+        ResultDto<String> resultDto = new ResultDto<>();
+        resultDto.success();
         String requestUrl = delPrivateTemplateUrl + "?access_token=" + WechatToken.getToken();
         JSONObject data = new JSONObject();
         data.put("template_id", templateId);
         JSONObject resultJson = restTemplateRequest.restTemplatePost(requestUrl, data);
-        return resultJson;
+        resultDto.setData(resultJson.toString());
+        return resultDto;
     }
 
 
@@ -303,7 +321,7 @@ public class WechatService {
         //金额必须为整数  单位为分
         paramMap.put("total_fee", "" + 3000);
         //支付成功后，回调地址
-        paramMap.put("notify_url",notifyUrl);
+        paramMap.put("notify_url", notifyUrl);
         //appid
         paramMap.put("appid", appid);
         //商户号
