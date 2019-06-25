@@ -293,7 +293,7 @@ public class WechatService {
         //描述
         paramMap.put("body", "打火机");
         //商户 后台的贸易单号
-        paramMap.put("out_trade_no", "1000012019062400001");
+        paramMap.put("out_trade_no", "100001" + System.currentTimeMillis());
         //金额必须为整数  单位为分
         paramMap.put("total_fee", "" + 3000);
         //支付成功后，回调地址
