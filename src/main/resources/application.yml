@@ -19,7 +19,7 @@ spring:
 
   #数据源配置
   datasource:
-    url: jdbc:mysql://114.215.198.87:3306/activity_test?useUnicode=true&characterEncoding=utf-8
+    url:
     username: devtest
     password: devtest123
     driver-class-name: com.mysql.jdbc.Driver
