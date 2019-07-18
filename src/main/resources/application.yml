@@ -19,16 +19,18 @@ spring:
 
   #数据源配置
   datasource:
-    url:
+    url: jdbc:mysql://114.215.198.87:3306/actiivity_test?useUnicode=true&characterEncoding=utf-8
     username: devtest
     password: devtest123
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     connectionProperties: druid.stat.mergeSql=true
 
-mybatis:
-  mapperLocations: classpath:mapping/*.xml
-  typeAliasesPackage: com.zr.qingchun.model
+#mybatis-plus 映射的mapper.xml,以及实体类名
+mybatis-plus:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.zr.qingchun.model
+
 
 #自定义阿里云支付配置
 alipay:
