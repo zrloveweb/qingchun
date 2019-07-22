@@ -11,10 +11,33 @@ import java.util.Date;
  * @create: 2019-07-15 13:37
  **/
 
-public class BaseEntity<T extends Model> extends Model{
+public class BaseEntity<T extends Model> extends Model {
+
+    /**
+     * 删除常量字段
+     */
+    public static final String DEL_FLAG = "del_flag";
+
+    /**
+     * 未删除标记
+     */
+    public static final String DEL_FLAG_N = "0";
+    /**
+     * 删除标记
+     */
+    public static final String DEL_FLAG_Y = "1";
+    /**
+     * 当前页
+     */
+    public static final int  CURRENT_SIZE= 1;
+    /**
+     * 每页个数
+     */
+    public static final int PAGE_NUM = 5;
+
 
     private int id;
-    
+
     private String delFlag;
 
     private Date createDate;

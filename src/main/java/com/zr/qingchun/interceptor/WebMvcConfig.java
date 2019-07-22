@@ -1,6 +1,7 @@
 package com.zr.qingchun.interceptor;
 
 //import com.zr.qingchun.interceptor.MyInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -15,6 +16,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  **/
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+
+
+    /**
+     * 分页插件
+     * @return
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        return paginationInterceptor;
+    }
+
 
  /*   @Override
     public void addInterceptors(InterceptorRegistry registry) {

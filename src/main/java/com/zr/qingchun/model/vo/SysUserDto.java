@@ -11,7 +11,7 @@ import lombok.Data;
  **/
 
 @Data
-public class SysUserVo {
+public class SysUserDto {
     private int id;
 
     private String userName;
