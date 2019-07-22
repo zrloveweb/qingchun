@@ -1,6 +1,5 @@
-package com.zr.qingchun.model.vo;
+package com.zr.qingchun.model.dto;
 
-import com.zr.qingchun.model.BaseEntity;
 import lombok.Data;
 
 /**
