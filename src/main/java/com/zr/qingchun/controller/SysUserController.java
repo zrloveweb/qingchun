@@ -4,20 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zr.qingchun.common.ResultDto;
 import com.zr.qingchun.model.SysUser;
-import com.zr.qingchun.model.vo.SysUserDto;
 import com.zr.qingchun.service.SysUserService;
-import org.apache.ibatis.reflection.ArrayUtil;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.util.ArrayUtils;
-import org.thymeleaf.util.ListUtils;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 /**
