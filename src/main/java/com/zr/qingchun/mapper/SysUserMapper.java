@@ -5,10 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-/**
- * @author:zhaorui
- */
-public interface SysUserMapper  extends SuperMapper<SysUser> {
+public interface SysUserMapper  extends SuperMapper<SysUser>{
     int deleteByPrimaryKey(Integer id);
 
     int insert(SysUser record);

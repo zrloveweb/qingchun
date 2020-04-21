@@ -1,3 +1,4 @@
+/*
 package com.zr.wechat.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -15,12 +16,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+*/
 /**
  * @program: qingchun
  * @description:
  * @author: zhaoRui
  * @create: 2019-07-15 13:12
- **/
+ **//*
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {WechatApplication.class})
 public class SysUserMapperTest {
@@ -43,12 +46,14 @@ public class SysUserMapperTest {
           }
     @Test
     public void pageHelper(){
-        /*QueryWrapper<SysUser> queryWrapper =  new QueryWrapper<>();
+        */
+/*QueryWrapper<SysUser> queryWrapper =  new QueryWrapper<>();
         queryWrapper.select("user_name");
         queryWrapper.eq(SysUser.DEL_FLAG,SysUser.DEL_FLAG_N);
 
         Page<SysUser> page = new Page<>(1,5);
-        IPage<SysUser> sysUserIPage = sysUserMapper.selectPage(page, queryWrapper);*/
+        IPage<SysUser> sysUserIPage = sysUserMapper.selectPage(page, queryWrapper);*//*
+
 
         Page<SysUser> page = new Page<>(1, 5);
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
@@ -61,3 +66,4 @@ public class SysUserMapperTest {
 
     }
 }
+*/

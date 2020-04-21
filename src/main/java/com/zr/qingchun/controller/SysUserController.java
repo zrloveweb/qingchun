@@ -71,6 +71,7 @@ public class SysUserController {
         resultDto.success();
         sysUser.setCreator("admin");
         sysUser.setUpdator("admin");
+        sysUser.setDelFlag(SysUser.DEL_FLAG_N);
         boolean b = userService.save(sysUser);
         if (!b) {
             resultDto.failure();

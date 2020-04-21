@@ -19,9 +19,9 @@ spring:
 
   #数据源配置
   datasource:
-    url: jdbc:mysql://114.215.198.87:3306/actiivity_test?useUnicode=true&characterEncoding=utf-8
-    username:
-    password:
+    url: jdbc:mysql://localhost:3306/qingchun?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     connectionProperties: druid.stat.mergeSql=true
